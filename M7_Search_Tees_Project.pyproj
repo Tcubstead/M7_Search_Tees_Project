@@ -22,6 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="M7_Search_Tees_Project.py" />
+    <Compile Include="schedule.py" />
     <Compile Include="schedule_item.py" />
     <Compile Include="SearchTrees.py" />
   </ItemGroup>
