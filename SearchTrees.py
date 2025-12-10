@@ -70,9 +70,19 @@ class BSTMap:
             yield from self._inorder_recursive(node.right)
     
     # ------------------------ HEIGHT ------------------------
+    #Returns height of BST tree
+    def height(self):
+        return self._height_recursive(self._root)
 
+    #returns height of the subtree and -1 for none
+    def _height_recursive(self, node):
+        if node is None:
+            return -1
 
+        left_height = self._height_recursive(node.left)
+        right_height = self._height_recursive(node.right)
 
+        return 1 + max(left_height, right_height)
 
 
 
@@ -205,4 +215,16 @@ class AVLTreeMap:
         return y
     
     # ------------------------ HEIGHT ------------------------
-    # STUDENT IMPLEMENTATION
+    # true height of AVL tree
+
+    def height(self):
+        return self._height_recursive(self._root)
+
+    def _height_recursive(self, node):
+        if node is None:
+            return -1
+
+        left_height = self._height_recursive(node.left)
+        right_height = self._height_recursive(node.right)
+
+        return 1 + max(left_height, right_height)
