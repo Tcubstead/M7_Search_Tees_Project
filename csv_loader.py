@@ -1,9 +1,15 @@
+"""
+csv_loader.py
+Loads course data from CSV files into Schedule objects.
+Uses csv.DictReader for robust CSV parsing.
+"""
+
 import csv
 from schedule_item import ScheduleItem
 
 # Load schedule from CSV file
 def load_schedule_from_csv(filename, schedule):
-    
+
     count = 0
     
     try:
@@ -71,8 +77,9 @@ def load_schedule_from_csv(filename, schedule):
     except Exception as e:
         raise Exception(f"Error loading CSV: {str(e)}")
 
-# Utility to create a sample CSV file for testing
+# Create a sample CSV file for testing
 def create_sample_csv(filename):
+
     sample_data = [
         {'crn': '12345', 'course_code': 'CS101', 'title': 'Introduction to Computer Science', 'instructor': 'Dr. Smith'},
         {'crn': '12346', 'course_code': 'CS102', 'title': 'Data Structures', 'instructor': 'Dr. Johnson'},
@@ -97,6 +104,7 @@ def create_sample_csv(filename):
             writer.writeheader()
             writer.writerows(sample_data)
         print(f"Sample CSV created: {filename}")
+        print(f"Note: This is test data. Your main file 'courses_2023.csv' has 521 real courses.")
         return True
     except Exception as e:
         print(f"Error creating sample CSV: {str(e)}")
