@@ -270,4 +270,47 @@ def create_sample_csv_menu():
     else:
         print(f"\n✗ Failed to create sample CSV.")
 
+def main():
+    """Main program loop"""
+    # Initialize both tree types
+    bst_schedule = Schedule(BSTMap())
+    avl_schedule = Schedule(AVLTreeMap())
+    
+    while True:
+        display_menu()
+        choice = input("\nEnter your choice: ").strip()
+        
+        if choice == '1':
+            load_data_menu(bst_schedule, avl_schedule)
+        elif choice == '2':
+            print_header("All Courses (BST)")
+            bst_schedule.display_all()
+        elif choice == '3':
+            print_header("All Courses (AVL)")
+            avl_schedule.display_all()
+        elif choice == '4':
+            search_by_crn(bst_schedule, avl_schedule)
+        elif choice == '5':
+            search_by_course_code(bst_schedule, avl_schedule)
+        elif choice == '6':
+            search_by_instructor(bst_schedule, avl_schedule)
+        elif choice == '7':
+            display_tree_heights(bst_schedule, avl_schedule)
+        elif choice == '8':
+            compare_heights(bst_schedule, avl_schedule)
+        elif choice == '9':
+            display_statistics(bst_schedule, avl_schedule)
+        elif choice == '10':
+            create_sample_csv_menu()
+        elif choice == '0':
+            print_header("Thank you for using Course Schedule System!")
+            print("Goodbye!\n")
+            break
+        else:
+            print("\n✗ Invalid choice. Please try again.")
+        
+        input("\nPress Enter to continue...")
 
+
+if __name__ == "__main__":
+    main()
