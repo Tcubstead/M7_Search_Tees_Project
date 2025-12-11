@@ -2,7 +2,7 @@
 #M7_Search_Trees_Project
 #main
 #12/10/25
-#
+#This program implements a course schedule system using both a Binary Search Tree (BST) and an AVL tree.
 
 """
 main.py
