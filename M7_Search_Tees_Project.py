@@ -1,4 +1,4 @@
-#Thomas Cubstead
+﻿#Thomas Cubstead
 #M7_Search_Trees_Project
 #main
 #12/10/25
@@ -51,3 +51,13 @@ def test_height_single_node():
     
     print("Pass: Single node trees have correct height")
 
+def test_height_balanced_insertion():
+    print("\n" + "=" * 80)
+    print("Test: Height with balanced insertion")
+    print("="*80)
+
+    bst = BSTMap()
+    avl = AVLTreeMap()
+
+    values = [5, 3, 7, 2, 4, 6, 8]
+    for val in values:

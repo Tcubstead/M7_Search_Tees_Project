@@ -21,6 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="csv_loader.py" />
     <Compile Include="M7_Search_Tees_Project.py" />
     <Compile Include="schedule.py" />
     <Compile Include="schedule_item.py" />
