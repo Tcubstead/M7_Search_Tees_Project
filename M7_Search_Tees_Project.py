@@ -51,11 +51,14 @@ def load_data_menu(bst_schedule, avl_schedule):
     print_header("Load Data from CSV")
     filename = input("Enter CSV filename (or press Enter for 'courses_2023.csv'): ").strip()
     
+    # Use empty string to trigger default in csv_loader
     if not filename:
-        filename = "courses_2023.csv"
+        filename = None
     
-    if not os.path.exists(filename):
-        print(f"\nError: File '{filename}' not found.")
+    # Check if file exists (handle None for default)
+    check_filename = filename if filename else "courses_2023.csv"
+    if not os.path.exists(check_filename):
+        print(f"\nError: File '{check_filename}' not found.")
         print("Tip: Use option 10 to create a sample CSV file.")
         return False
     
@@ -78,7 +81,8 @@ def load_data_menu(bst_schedule, avl_schedule):
         bst_schedule.tree_map = new_bst
         avl_schedule.tree_map = new_avl
         
-        print(f"\n✓ Successfully loaded {bst_count} courses into both trees!")
+        actual_filename = filename if filename else "courses_2023.csv"
+        print(f"\n✓ Successfully loaded {bst_count} courses from '{actual_filename}' into both trees!")
         print(f"  BST Height: {bst_schedule.get_tree_height()}")
         print(f"  AVL Height: {avl_schedule.get_tree_height()}")
         
@@ -86,13 +90,15 @@ def load_data_menu(bst_schedule, avl_schedule):
     
     except Exception as e:
         print(f"\nError loading data: {str(e)}")
+        import traceback
+        traceback.print_exc()
         return False
 
 
 def search_by_crn(bst_schedule, avl_schedule):
     """Search for a course by CRN"""
     print_header("Search by CRN")
-    crn = input("Enter CRN: ").strip()
+    crn = input("Enter CRN (Class Number): ").strip()
     
     print(f"\nSearching in BST...")
     item = bst_schedule.find_by_crn(crn)
@@ -107,7 +113,7 @@ def search_by_crn(bst_schedule, avl_schedule):
 def search_by_course_code(bst_schedule, avl_schedule):
     """Search for courses by course code"""
     print_header("Search by Course Code")
-    code = input("Enter course code: ").strip()
+    code = input("Enter course code (e.g., CS101, MATH201): ").strip()
     
     print(f"\nSearching in BST...")
     items = bst_schedule.find_by_course_code(code)
@@ -123,7 +129,7 @@ def search_by_course_code(bst_schedule, avl_schedule):
 def search_by_instructor(bst_schedule, avl_schedule):
     """Search for courses by instructor"""
     print_header("Search by Instructor")
-    instructor = input("Enter instructor name: ").strip()
+    instructor = input("Enter instructor name (partial match allowed): ").strip()
     
     print(f"\nSearching in BST...")
     items = bst_schedule.find_by_instructor(instructor)
@@ -149,13 +155,17 @@ def display_tree_heights(bst_schedule, avl_schedule):
     print(f"  Items: {bst_count}")
     print(f"  Height: {bst_height}")
     if bst_count > 0:
-        print(f"  Height/log₂(n): {bst_height / max(1, bst_count.bit_length() - 1):.2f}")
+        import math
+        log_n = math.log2(bst_count) if bst_count > 0 else 1
+        print(f"  Height/log₂(n): {bst_height / log_n:.2f}")
     
     print(f"\nAVL (Balanced Tree):")
     print(f"  Items: {avl_count}")
     print(f"  Height: {avl_height}")
     if avl_count > 0:
-        print(f"  Height/log₂(n): {avl_height / max(1, avl_count.bit_length() - 1):.2f}")
+        import math
+        log_n = math.log2(avl_count) if avl_count > 0 else 1
+        print(f"  Height/log₂(n): {avl_height / log_n:.2f}")
     
     print(f"\nHeight Difference: {abs(bst_height - avl_height)} edges")
 
@@ -265,16 +275,21 @@ def create_sample_csv_menu():
             return
     
     if create_sample_csv(filename):
-        print(f"\n✓ Sample CSV created successfully!")
+        print(f"\n✓ Sample CSV created successfully: '{filename}'")
         print(f"  You can now load it using option 1.")
     else:
         print(f"\n✗ Failed to create sample CSV.")
+
 
 def main():
     """Main program loop"""
     # Initialize both tree types
     bst_schedule = Schedule(BSTMap())
     avl_schedule = Schedule(AVLTreeMap())
+    
+    print("\nWelcome to the Course Schedule System!")
+    print("This system compares Binary Search Trees (BST) vs AVL Trees")
+    print("Default data file: courses_2023.csv")
     
     while True:
         display_menu()
